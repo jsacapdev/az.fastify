@@ -5,26 +5,11 @@ const fastify = require('fastify')({
 
 // Declare a route
 fastify.get('/', function (request, reply) {
-    reply.send({ hello: 'world' })
+    var isoDateString = new Date().toISOString();
+    reply.send({ hello: isoDateString })
 })
 
-var port = normalizePort(process.env.PORT || '3000');
-
-function normalizePort(val) {
-    var port = parseInt(val, 10);
-
-    if (isNaN(port)) {
-        // named pipe
-        return val;
-    }
-
-    if (port >= 0) {
-        // port number
-        return port;
-    }
-
-    return false;
-}
+const port = process.env.PORT || 1337;
 
 // Run the server!
 fastify.listen(port, function (err, address) {
@@ -34,3 +19,5 @@ fastify.listen(port, function (err, address) {
     }
     fastify.log.info(`server listening on ${address}`)
 })
+
+console.log("Server running at http://localhost:%d", port);
